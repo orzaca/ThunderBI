@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Zirius Mobile – Resumen Global Hoy</title>
+
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ICONOS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- ESTILOS -->
+    <link rel="stylesheet" href="css/dashboard_resumen_hoy.css">
+
+    <!-- CHART.JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="wrapper">
+
+    <!-- HEADER -->
+    <header class="top-bar">
+        <div class="top-left">
+            <h1>RESUMEN GLOBAL – MOBILE HOY</h1>
+            <p id="subtitulo-dia"></p>
+        </div>
+        <div class="top-right">
+            <span class="badge-api"><i class="fas fa-bolt"></i> Vision Mobile API</span>
+        </div>
+    </header>
+
+    <!-- KPIs -->
+    <section class="cards-resumen">
+        <div class="card-resumen">
+            <span class="card-label">Inicios</span>
+            <span class="card-value" id="kpi-inicios">0</span>
+        </div>
+        <div class="card-resumen">
+            <span class="card-label">Llegadas escolta</span>
+            <span class="card-value" id="kpi-llegadas">0</span>
+        </div>
+        <div class="card-resumen">
+            <span class="card-label">Empalmes</span>
+            <span class="card-value" id="kpi-empalmes">0</span>
+        </div>
+        <div class="card-resumen">
+            <span class="card-label">Desempalmes</span>
+            <span class="card-value" id="kpi-desempalmes">0</span>
+        </div>
+        <div class="card-resumen">
+            <span class="card-label">Finalizaciones</span>
+            <span class="card-value" id="kpi-fines">0</span>
+        </div>
+    </section>
+
+    <main class="panel">
+
+        <!-- LOADER GLOBAL -->
+        <div id="loader-global" class="loader-overlay">
+            <div class="loader">
+                <div class="spinner"></div>
+                <p>Cargando información de hoy…</p>
+            </div>
+        </div>
+
+        <!-- GRÁFICOS PRINCIPALES -->
+        <section class="graficos-grid">
+            <div class="card-grafico">
+                <h2>Embudo operativo por etapa</h2>
+                <p class="grafico-subtitle">Cantidad de reportes por tipo (Inicio → Fin).</p>
+                <canvas id="chartEmbudo"></canvas>
+            </div>
+            <div class="card-grafico">
+                <h2>Distribución por cliente y etapa</h2>
+                <p class="grafico-subtitle">Solo clientes definidos en config.js.</p>
+                <canvas id="chartClientes"></canvas>
+            </div>
+        </section>
+
+        <!-- MAPA DE CALOR RUTAS -->
+        <section class="card-grafico heatmap-card">
+            <h2>Mapa de calor rutas (Ciudad inicio → Ciudad destino)</h2>
+            <p class="grafico-subtitle">
+                Cada celda muestra cuántos servicios se realizan desde la ciudad de inicio (fila)
+                hacia la ciudad destino (columna), usando datos de INICIO.
+            </p>
+            <div class="heatmap-wrapper">
+                <table id="tabla-heatmap-rutas" class="heatmap-table"></table>
+            </div>
+        </section>
+
+        <!-- TABLAS POR ETAPA -->
+        <section class="seccion-tablas">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="inicio">Inicio</button>
+                <button class="tab-btn" data-tab="llegada">Llegada escolta</button>
+                <button class="tab-btn" data-tab="empalme">Empalme</button>
+                <button class="tab-btn" data-tab="desempalme">Desempalme</button>
+                <button class="tab-btn" data-tab="fin">Fin</button>
+            </div>
+
+            <!-- INICIO -->
+            <div id="tab-inicio" class="tab-panel active">
+                <div class="tabla-contenedor">
+                    <table class="tabla-datos">
+                        <thead>
+                            <tr>
+                                <th>Hora</th>
+                                <th>Cliente</th>
+                                <th>Empleado</th>
+                                <th>Sitio de inicio</th>
+                                <th>Ciudad origen</th>
+                                <th>Ciudad destino</th>
+                                <th>Tipo servicio</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-inicio"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- LLEGADA ESCOLTA -->
+            <div id="tab-llegada" class="tab-panel">
+                <div class="tabla-contenedor">
+                    <table class="tabla-datos">
+                        <thead>
+                            <tr>
+                                <th>Hora</th>
+                                <th>Cliente</th>
+                                <th>Empleado</th>
+                                <th>Ruta asignada</th>
+                                <th>Observaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-llegada"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- EMPALME -->
+            <div id="tab-empalme" class="tab-panel">
+                <div class="tabla-contenedor">
+                    <table class="tabla-datos">
+                        <thead>
+                            <tr>
+                                <th>Hora</th>
+                                <th>Cliente</th>
+                                <th>Empleado</th>
+                                <th>Ruta</th>
+                                <th>Placa</th>
+                                <th>Número servicio</th>
+                                <th>Precinto</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-empalme"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- DESEMPALME -->
+            <div id="tab-desempalme" class="tab-panel">
+                <div class="tabla-contenedor">
+                    <table class="tabla-datos">
+                        <thead>
+                            <tr>
+                                <th>Hora</th>
+                                <th>Cliente</th>
+                                <th>Empleado</th>
+                                <th>Ruta</th>
+                                <th>Placa</th>
+                                <th>Sitio desempalme</th>
+                                <th>Precinto</th>
+                                <th>Conductor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-desempalme"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- FIN -->
+            <div id="tab-fin" class="tab-panel">
+                <div class="tabla-contenedor">
+                    <table class="tabla-datos">
+                        <thead>
+                            <tr>
+                                <th>Hora</th>
+                                <th>Cliente</th>
+                                <th>Empleado</th>
+                                <th>Sitio finalización</th>
+                                <th>Ciudad finalización</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-fin"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- SCRIPTS -->
+<script src="js/config.js"></script>
+<script src="js/mobile_core.js"></script>
+<script src="js/dashboard_resumen_hoy.js"></script>
+
+</body>
+</html>
