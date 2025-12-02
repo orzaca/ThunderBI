@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login - VisionDesk</title>
+
+  <!-- Opcional: tu CSS -->
+  <link rel="stylesheet" href="/css/dashboard_cliente_hoy.css">
+
+  <style>
+    body { font-family: Inter, Poppins, Arial; background: linear-gradient(180deg,#0f1724,#071027); color:#e6eef8; margin:0; }
+    .wrap { max-width:520px; margin:60px auto; padding:28px; background:rgba(6,10,17,0.6); border-radius:12px; box-shadow:0 10px 30px rgba(2,6,23,0.6); }
+    h1 { margin:0 0 8px; font-size:20px; color:#e6f6ff; }
+    p.lead { margin:0 0 18px; color:#9fb6cf; font-size:14px; }
+    .actions { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+    .btn { padding:10px 14px; border-radius:999px; cursor:pointer; border:0; font-weight:600; }
+    .btn-ghost { background:transparent; border:1px solid rgba(255,255,255,0.06); color:#dff3ff; }
+    .btn-primary { background:linear-gradient(90deg,#06b6d4,#10b981); color:#06101a; }
+    .note { margin-top:12px; font-size:13px; color:#9fb6cf; }
+    .small { font-size:13px; color:#9fb6cf; margin-top:6px; }
+    footer { text-align:center; margin-top:18px; color:#7c97ab; font-size:12px; }
+  </style>
+</head>
+<body>
+
+  <div class="wrap" role="main" aria-labelledby="titulo">
+    <h1 id="titulo">Acceder a VisionDesk</h1>
+    <p class="lead">Ingresa con tu cuenta. Puedes usar el widget (correo) o iniciar con proveedores como GitHub o Google si están habilitados.</p>
+
+    <div class="actions">
+      <button id="open-widget" class="btn btn-primary">Abrir panel de inicio (email / providers)</button>
+      <button id="btn-github" class="btn btn-ghost">Iniciar con GitHub</button>
+      <button id="btn-google" class="btn btn-ghost">Iniciar con Google</button>
+    </div>
+
+    <div class="note">
+      Si no tienes cuenta, regístrate desde el panel (si el registro está habilitado en Netlify Identity) o solicita invitación.
+    </div>
+
+    <div class="small">¿Problemas? Revisa <strong>Site settings → Identity</strong> en Netlify y asegúrate de habilitar proveedores y/o registro.</div>
+
+    <footer>VisionDesk • Netlify Identity</footer>
+  </div>
+
+  <!-- Netlify Identity Widget (CDN) -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+  <!-- Tu script -->
+  <script type="module" src="/js/auth.js"></script>
+</body>
+</html>
