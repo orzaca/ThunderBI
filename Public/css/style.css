@@ -1,0 +1,618 @@
+/* ==============================
+   GLOBAL
+================================ */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(circle at top left, #20293a, #0d1117);
+    color: #111111;
+}
+
+/* ==============================
+   SIDEBAR ICONOS
+================================ */
+.sidebar-icons {
+    position:fixed;
+    left:0;
+    top:0;
+    width:70px;
+    height:100%;
+    background:#42638C;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding-top:20px;
+    gap:18px;
+    z-index:1000;
+}
+
+.icon-item {
+    width:48px;
+    height:48px;
+    background:rgba(255,255,255,0.15);
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    cursor:pointer;
+    transition:.25s;
+    position:relative;
+}
+
+.icon-item:hover {
+    background:white;
+    color:#42638C;
+    transform:translateX(5px);
+}
+
+.icon-item::after {
+    content:attr(data-title);
+    position:absolute;
+    left:60px;
+    opacity:0;
+    top:50%;
+    transform:translateY(-50%);
+    background:#000000cc;
+    padding:6px 10px;
+    color:white;
+    white-space:nowrap;
+    border-radius:6px;
+    font-size:11px;
+    pointer-events:none;
+    transition:.25s;
+}
+
+.icon-item:hover::after {
+    opacity:1;
+    left:62px;
+}
+
+/* ==============================
+   HEADER CORPORATIVO
+================================ */
+.top-header {
+    background:#0F0F1A;
+    color:white;
+    padding:14px 30px 14px 12px;
+    position:relative;
+}
+
+.header-inner {
+    max-width:1400px;
+    margin:0 auto;
+}
+
+.header-top-row {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.header-logo img {
+    height:45px;
+}
+
+.header-subtitle {
+    font-size:13px;
+    opacity:.85;
+}
+
+/* SELECTOR CLIENTE */
+.header-client-selector {
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:3px;
+}
+
+.header-client-selector label {
+    font-size:10px;
+    color:#dcdcdc;
+    text-transform:uppercase;
+    letter-spacing:.8px;
+}
+
+.header-client-selector select {
+    padding:5px 8px;
+    border:none;
+    border-radius:6px;
+    font-family:'Poppins';
+    font-size:12px;
+    min-width:150px;
+    color:#0F0F1A;
+    cursor:pointer;
+}
+
+/* ==============================
+   LAYOUT
+================================ */
+.main-layout {
+    padding:25px 30px;
+    max-width:1400px;
+    margin:0 auto;
+}
+
+/* ==============================
+   PANELES
+================================ */
+.panel {
+    background:#ACC2DD;
+    border-radius:12px;
+    padding:20px;
+    margin-bottom:25px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.08);
+}
+
+.panel-header h2 {
+    margin:0;
+    color:#0F0F1A;
+    font-size:18px;
+}
+
+.panel-header {
+    margin-bottom:14px;
+}
+
+.panel-subtitle {
+    font-size:12px;
+    opacity:.8;
+}
+
+#cliente-actual {
+    font-size:14px;
+    font-weight:500;
+    margin-left:6px;
+    opacity:0.9;
+}
+
+/* ==============================
+   KPI GLOBAL
+================================ */
+.kpi-bar {
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+    justify-content:flex-start;
+}
+
+.kpi-pill {
+    background:white;
+    border-radius:10px;
+    padding:8px 20px;
+    box-shadow:0 1px 4px rgba(0,0,0,0.12);
+    text-align:center;
+
+    min-width:170px;
+    flex:1 1 170px;
+    max-width:260px;
+}
+
+.kpi-label {
+    font-size:11px;
+    font-weight:600;
+    color:#0F0F1A;
+    display:block;
+}
+
+.kpi-value {
+    font-size:20px;
+    font-weight:700;
+    margin-top:3px;
+    color:#0F0F1A;
+}
+
+/* BARRAS */
+.kpi-progress {
+    width:100%;
+    height:5px;
+    background:#e4e4e4;
+    border-radius:5px;
+    margin-top:6px;
+    position:relative;
+}
+
+.kpi-progress-fill {
+    height:100%;
+    background:#147D7D;
+    width:0%;
+    border-radius:5px;
+    transition:width .4s ease, background-color .3s ease;
+}
+
+.kpi-progress-percent {
+    font-size:10px;
+    margin-top:3px;
+    display:block;
+    text-align:right;
+}
+
+/* ==============================
+   PANEL CLIENTE – MINI CARDS
+================================ */
+#cliente-section {
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+    justify-content:flex-start;
+}
+
+.mini-card {
+    background:white;
+    border-radius:12px;
+    padding:12px 15px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    text-align:center;
+
+    min-width:170px;
+    flex:1 1 170px;
+    max-width:260px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:140px;
+}
+
+.mini-title {
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:4px;
+}
+
+.mini-number {
+    font-size:24px;
+    margin-top:6px;
+    font-weight:700;
+    color:#147D7D;
+}
+
+/* ==============================
+   GRAFICOS CIRCULARES
+================================ */
+.kpi-circle {
+    width:70px;
+    height:70px;
+    margin:8px auto;
+    position:relative;
+}
+
+.kpi-circle svg {
+    width:70px;
+    height:70px;
+    transform:rotate(-90deg);
+}
+
+.kpi-circle circle {
+    fill:none;
+    stroke-width:7;
+    r:30;
+    cx:35;
+    cy:35;
+}
+
+.kpi-circle .bg {
+    stroke:#ddd;
+}
+
+.kpi-circle .progress {
+    stroke:#147D7D;
+    stroke-dasharray:188;
+    stroke-dashoffset:188;
+    transition:stroke-dashoffset .5s ease, stroke .3s ease;
+}
+
+.circle-value {
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    font-size:13px;
+    font-weight:600;
+    color:#0F0F1A;
+}
+
+/* ==============================
+   TABLAS
+================================ */
+.tabla-empleados {
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.tabla-empleados th {
+    background:#0F0F1A;
+    color:white;
+    padding:8px;
+    font-size:11px;
+    font-weight:600;
+}
+
+.tabla-empleados td {
+    padding:7px;
+    text-align:center;
+    font-size:12px;
+}
+
+.tabla-empleados tr:nth-child(even) {
+    background:#f1f1f1;
+}
+
+
+
+.tabla-armas td {
+    text-align:left;
+}
+
+/* Chips de estado arma */
+.estado-arma {
+    font-weight:600;
+    padding:3px 8px;
+    border-radius:999px;
+    font-size:11px;
+    display:inline-block;
+}
+
+.estado-verde {
+    background:#e6f9f0;
+    color:#1b8c4d;
+}
+
+.estado-amarillo {
+    background:#fff7e0;
+    color:#c78b12;
+}
+
+.estado-rojo {
+    background:#ffe5e5;
+    color:#c0392b;
+}
+
+/* ==============================
+   TOASTS LIVE
+================================ */
+#toast-container {
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    z-index:9999;
+}
+
+.toast {
+    background:white;
+    border-left:5px solid #147D7D;
+    padding:10px 14px;
+    border-radius:10px;
+    width:260px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    animation:toastIn .25s ease-out;
+}
+
+@keyframes toastIn {
+    from { opacity:0; transform:translateX(20px); }
+    to   { opacity:1; transform:translateX(0); }
+}
+
+.toast-header {
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.toast-title {
+    font-size:13px;
+    font-weight:600;
+}
+
+.toast-body {
+    font-size:12px;
+    margin-top:4px;
+}
+
+/* ==============================
+   EFECTO ALERTA KPI GLOBAL
+================================ */
+.kpi-alert {
+    animation: kpiBlink 1s ease-in-out infinite;
+}
+
+@keyframes kpiBlink {
+    0%, 100% {
+        background-color: #ffffff;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+        transform: translateY(0);
+    }
+    50% {
+        background-color: #ffe5e5;
+        box-shadow: 0 0 12px rgba(255,0,0,0.25);
+        transform: translateY(-2px);
+    }
+}
+
+/* ==============================
+   MODAL DETALLE KPI GLOBAL
+================================ */
+.modal-kpi {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.modal-kpi.show {
+    display: flex;
+}
+
+.modal-kpi-content {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    width: 760px;
+    max-width: 95vw;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.modal-kpi-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 18px;
+    border-bottom: 1px solid #e0e0e0;
+    background: #f7f7f9;
+}
+
+.modal-kpi-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #0F0F1A;
+}
+
+.modal-kpi-close {
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background 0.15s;
+}
+
+.modal-kpi-close:hover {
+    background: #e0e0e0;
+}
+
+.modal-kpi-body {
+    padding: 10px 16px 16px;
+    overflow: auto;
+}
+
+.tabla-modal th {
+    font-size: 11px;
+    padding: 6px;
+}
+
+.tabla-modal td {
+    font-size: 12px;
+    padding: 6px;
+    text-align: left;
+}
+
+/* Fila parpadeando cuando el arma está fuera de tiempo */
+.arma-roja-parpadeo {
+    animation: armaBlink 1s ease-in-out infinite;
+}
+
+@keyframes armaBlink {
+    0%, 100% {
+        background-color: #ffe5e5;
+    }
+    50% {
+        background-color: #ffd0d0;
+    }
+}
+
+/* ==============================
+   LOADER EN MINICARDS (GLOBAL + CLIENTE)
+================================ */
+
+/* Para poder posicionar el loader */
+.kpi-pill,
+.mini-card {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Ocultar contenido mientras está en loading */
+.kpi-pill.loading * ,
+.mini-card.loading * {
+    opacity: 0;
+}
+
+/* Spinner centrado */
+.kpi-pill.loading::after,
+.mini-card.loading::after {
+    content:"";
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:28px;
+    height:28px;
+    margin:-14px 0 0 -14px;
+    border-radius:50%;
+    border:3px solid #d0d7e6;
+    border-top-color:#147D7D;
+    animation:loaderMiniSpin 0.8s linear infinite;
+}
+
+/* Animación de giro del mini spinner */
+@keyframes loaderMiniSpin {
+    from { transform:translate(-50%,-50%) rotate(0deg); }
+    to   { transform:translate(-50%,-50%) rotate(360deg); }
+}
+
+/* ==============================
+   LOADER CIRCULAR – DASHBOARD PRINCIPAL
+================================ */
+.loader-overlay-page {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(244, 246, 249, 0.92); /* fondo claro semitransparente */
+    z-index: 2000; /* por encima de todo */
+}
+
+.loader-spinner {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 4px solid #d0d7e6;
+    border-top-color: #147D7D;
+    animation: loaderSpin 0.8s linear infinite;
+}
+
+.loader-text {
+    font-size: 12px;
+    color: #0F0F1A;
+    opacity: .8;
+}
+
+@keyframes loaderSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+/* Icono PREOPERACIONAL en tabla empleados */
+.icon-preoper {
+    color:#147D7D;
+    font-size:16px;
+}
+
+
+.badge-api {
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(56, 189, 248, 0.12);
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    color: #7dd3fc;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}

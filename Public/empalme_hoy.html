@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Zirius Mobile – Empalmes de Hoy</title>
+
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ICONOS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- ESTILOS PROPIOS -->
+    <link rel="stylesheet" href="css/empalme_hoy.css">
+</head>
+<body>
+
+<div class="wrapper">
+
+    <!-- HEADER -->
+    <header class="top-bar">
+        <div class="top-left">
+            <h1>EMPALMES DE HOY</h1>
+            <p id="subtitulo-dia"></p>
+        </div>
+        <div class="top-right">
+            <span class="badge-api"><i class="fas fa-bolt"></i> Vision Mobile API</span>
+        </div>
+    </header>
+
+    <!-- RESUMEN -->
+    <section class="cards-resumen">
+        <div class="card-resumen">
+            <span class="card-label">Total empalmes</span>
+            <span class="card-value" id="kpi-total-empalmes">0</span>
+        </div>
+        <div class="card-resumen">
+            <span class="card-label">Clientes distintos</span>
+            <span class="card-value" id="kpi-clientes-empalmes">0</span>
+        </div>
+        <div class="card-resumen">
+            <span class="card-label">Escoltas distintos</span>
+            <span class="card-value" id="kpi-escoltas-empalmes">0</span>
+        </div>
+    </section>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="panel">
+
+        <div class="panel-header">
+            <div>
+                <h2>Detalle de empalmes del día</h2>
+                <p>Campos del template EMPALME: Ruta, placa, número de servicio y precinto.</p>
+            </div>
+            <div class="acciones">
+                <button id="btn-recargar" class="btn-primario">
+                    <i class="fas fa-rotate-right"></i> Recargar
+                </button>
+            </div>
+        </div>
+
+        <!-- LOADER -->
+        <div id="loader" class="loader-overlay">
+            <div class="loader">
+                <div class="spinner"></div>
+                <p>Cargando empalmes de hoy…</p>
+            </div>
+        </div>
+
+        <!-- TABLA -->
+        <div class="tabla-contenedor">
+            <table class="tabla-empalmes" id="tabla-empalmes">
+                <thead>
+                    <tr>
+                        <th>Hora</th>
+                        <th>Cliente</th>
+                        <th>Empleado</th>
+                        <th>Ruta</th>
+                        <th>Placa vehículo empalmado</th>
+                        <th>Número de servicio</th>
+                        <th>Precinto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Se llena por JS -->
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+</div>
+
+<!-- CONFIG GLOBAL (API, templates) -->
+<script src="js/config.js"></script>
+<!-- LÓGICA DE ESTA PÁGINA -->
+<script src="js/empalme_hoy.js"></script>
+
+</body>
+</html>

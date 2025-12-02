@@ -1,0 +1,149 @@
+/* ============================
+    GENERAL
+============================ */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background: #f5f6fa;
+    padding-left: 70px; /* Ajuste sidebar */
+}
+
+/* ============================
+    SIDEBAR ICONOS
+============================ */
+.sidebar-icons {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 70px;
+    height: 100%;
+    background: #42638C;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    z-index: 10;
+}
+
+.icon-item {
+    width: 45px;
+    height: 45px;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.icon-item:hover {
+    background: #ffffff;
+    color: #42638C;
+    transform: translateX(5px);
+}
+
+/* ============================
+    HEADER
+============================ */
+.top-header {
+    background: #0F0F1A;
+    padding: 15px 30px;
+    color: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+.header-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.header-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo img {
+    height: 40px;
+}
+
+.header-subtitle {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+/* ============================
+    MAIN
+============================ */
+.main-layout {
+    padding: 25px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* ============================
+    PANELS
+============================ */
+.panel {
+    background: #ffffff;
+    padding: 18px 25px;
+    border-radius: 15px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    margin-bottom: 25px;
+}
+
+.panel-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.panel-subtitle {
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+.btn-cargar {
+    margin-top: 10px;
+    padding: 8px 20px;
+    background: #147D7D;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* ============================
+    TABLA
+============================ */
+.tabla-programacion {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.tabla-programacion th {
+    background: #0F0F1A;
+    color: white;
+    padding: 10px;
+    font-size: 13px;
+}
+
+.tabla-programacion td {
+    padding: 10px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.tabla-programacion tr:nth-child(even) {
+    background: #f0f0f0;
+}

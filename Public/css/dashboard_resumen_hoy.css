@@ -1,0 +1,356 @@
+/* dashboard_resumen_hoy.css */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(circle at top left, #20293a, #0d1117);
+    color: #f5f5f5;
+}
+
+/* WRAPPER */
+.wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px 20px 40px;
+}
+
+/* HEADER SUPERIOR */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.top-bar h1 {
+    margin: 0;
+    font-size: 24px;
+    letter-spacing: 0.05em;
+}
+
+.top-bar p {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: #c0c4d0;
+}
+
+.badge-api {
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(56, 189, 248, 0.12);
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    color: #7dd3fc;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* CARDS RESUMEN */
+.cards-resumen {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+.card-resumen {
+    background: linear-gradient(145deg, #111827, #020617);
+    border-radius: 14px;
+    padding: 12px 14px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.card-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: #9ca3af;
+}
+
+.card-value {
+    display: block;
+    margin-top: 4px;
+    font-size: 26px;
+    font-weight: 600;
+    color: #f9fafb;
+}
+
+/* PANEL PRINCIPAL */
+.panel {
+    background: rgba(15, 23, 42, 0.95);
+    border-radius: 16px;
+    padding: 18px 18px 22px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    position: relative;
+}
+
+/* LOADER GLOBAL */
+.loader-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), rgba(3, 7, 18, 0.98));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    z-index: 10;
+    backdrop-filter: blur(4px);
+}
+
+.loader {
+    text-align: center;
+}
+
+.loader p {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #e5e7eb;
+}
+
+.spinner {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 4px solid rgba(148, 163, 184, 0.35);
+    border-top-color: #22c55e;
+    border-right-color: #0ea5e9;
+    animation: spin 0.9s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loader-overlay.oculto {
+    display: none;
+}
+
+/* GRAFICOS */
+.graficos-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.7fr);
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.card-grafico {
+    background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.95), rgba(17, 24, 39, 0.96));
+    border-radius: 14px;
+    padding: 14px 16px 12px;
+    border: 1px solid rgba(55, 65, 81, 0.8);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+.card-grafico h2 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.grafico-subtitle {
+    margin: 4px 0 8px;
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+.card-grafico canvas {
+    width: 100%;
+    max-height: 280px;
+}
+
+/* HEATMAP RUTAS */
+.heatmap-card {
+    margin-top: 16px;
+}
+
+.heatmap-wrapper {
+    max-height: 360px;
+    overflow: auto;
+    border-radius: 10px;
+    border: 1px solid rgba(55, 65, 81, 0.8);
+    background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.95), rgba(17, 24, 39, 0.96));
+}
+
+.heatmap-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.heatmap-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.heatmap-table th,
+.heatmap-table td {
+    padding: 6px 8px;
+    text-align: center;
+    border: 1px solid rgba(31, 41, 55, 0.9);
+    white-space: nowrap;
+}
+
+.heatmap-table th {
+    background: #020617;
+    color: #e5e7eb;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.heatmap-table th.heatmap-header-corner {
+    background: #020617;
+    color: #9ca3af;
+    font-weight: 500;
+}
+
+.heatmap-table th.heatmap-header-vertical {
+    background: #020617;
+    text-align: left;
+}
+
+.heatmap-cell {
+    font-weight: 500;
+    color: #e5e7eb;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.heatmap-cell:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.8);
+}
+
+/* Scrollbar del heatmap */
+.heatmap-wrapper::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+}
+
+.heatmap-wrapper::-webkit-scrollbar-track {
+    background: #020617;
+}
+
+.heatmap-wrapper::-webkit-scrollbar-thumb {
+    background: #4b5563;
+    border-radius: 999px;
+}
+
+/* TABS Y TABLAS */
+.seccion-tablas {
+    margin-top: 10px;
+}
+
+.tabs {
+    display: inline-flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    border-radius: 999px;
+    padding: 3px;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(55, 65, 81, 0.9);
+}
+
+.tab-btn {
+    border: none;
+    background: transparent;
+    color: #9ca3af;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, #0ea5e9, #22c55e);
+    color: #0b1120;
+}
+
+/* Panels */
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+/* TABLAS */
+.tabla-contenedor {
+    max-height: 360px;
+    overflow: auto;
+    border-radius: 10px;
+    border: 1px solid rgba(55, 65, 81, 0.8);
+    background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.95), rgba(17, 24, 39, 0.96));
+}
+
+.tabla-datos {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.tabla-datos thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.tabla-datos th,
+.tabla-datos td {
+    padding: 8px 10px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.tabla-datos th {
+    background: #020617;
+    color: #e5e7eb;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    border-bottom: 1px solid #111827;
+}
+
+.tabla-datos tbody tr:nth-child(even) {
+    background: rgba(15, 23, 42, 0.9);
+}
+
+.tabla-datos tbody tr:nth-child(odd) {
+    background: rgba(15, 23, 42, 0.83);
+}
+
+.tabla-datos tbody tr:hover {
+    background: rgba(30, 64, 175, 0.6);
+}
+
+/* Columna hora */
+.tabla-datos td:first-child {
+    color: #7dd3fc;
+    font-weight: 500;
+}
+
+/* Scrollbar tablas */
+.tabla-contenedor::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+}
+
+.tabla-contenedor::-webkit-scrollbar-track {
+    background: #020617;
+}
+
+.tabla-contenedor::-webkit-scrollbar-thumb {
+    background: #4b5563;
+    border-radius: 999px;
+}

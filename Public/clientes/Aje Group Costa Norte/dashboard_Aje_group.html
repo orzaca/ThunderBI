@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Zirius Mobile – Informe por Cliente</title>
+
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ICONOS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- ESTILOS -->
+    <link rel="stylesheet" href="/Vision Desk/Public/css/dashboard_cliente_hoy.css">
+
+    <!-- CHART.JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+   <!-- SIDEBAR <aside class="sidebar-icons">
+
+    <div class="icon-item" data-title="Panel General" onclick="window.location.href='index.html'">
+        <i class="fas fa-chart-line"></i>
+    </div>
+
+    <div class="icon-item" data-title="Reportes" >
+        <i class="fas fa-file-alt"></i>
+    </div> 
+
+    <div class="icon-item" data-title="Empleados" onclick="window.location.href='empleados.html'">
+        <i class="fas fa-user-shield"></i>
+    </div>
+
+    <div class="icon-item" data-title="Clientes" onclick="window.location.href='clientes.html'">
+        <i class="fas fa-building"></i>
+    </div>
+
+      <div class="icon-item" data-title="Programación">
+        <i class="fas fa-calendar-alt"></i>
+    </div>
+
+    <div class="icon-item" data-title="Salir" onclick="window.location.href='reportes.html'">
+        <i class="fas fa-sign-out-alt"></i>
+    </div>
+
+</aside>-->
+    
+
+
+
+    <header class="top-header">
+        <div class="header-inner">
+            <div class="header-top-row">
+
+            <!-- LOGO IZQUIERDA -->
+                <div class="header-left">
+                    <div class="header-logo">
+                        <img src="https://brand.securitas.com/wp-content/uploads/2021/02/SEC_Logotype_3-1536x768.png" alt="Securitas Logo">
+                    </div>
+                </div>
+
+            <!-- CENTRO: Subtítulo -->
+            <div class="header-center">
+                <div class="header-title-block">
+                    <span class="header-subtitle">Reportes operativos – Aje Group Colombia</span>
+                </div>
+            </div>
+
+            <!-- DERECHA: badge + opcional selector cliente -->
+            <div class="header-right">
+                <div class="top-right">
+                    <span class="badge-api"><i class="fas fa-bolt"></i> Vision Desk - Mobile</span>
+                </div>
+          </div>
+
+        </div>
+    </header>
+
+<div class="wrapper">
+
+    <!-- SELECCIÓN DE CLIENTE -->
+    <section class="selector-cliente">
+        <label for="select-cliente">Cliente:</label>
+        <select id="select-cliente">
+            <option value="">Seleccione un cliente…</option>
+        </select>
+    </section>
+
+   
+
+    <!-- 🔹 NUEVO: FILTROS DE FECHA -->
+    <section class="filtros-fecha">
+        <div class="filtros-fecha-rango">
+            <label for="fecha-desde">Desde:</label>
+            <input type="date" id="fecha-desde">
+
+            <label for="fecha-hasta">Hasta:</label>
+            <input type="date" id="fecha-hasta">
+
+            <button id="btn-aplicar-fecha" class="btn-fecha-primario">
+                <i class="fas fa-filter"></i> Aplicar
+            </button>
+        </div>
+
+        <div class="filtros-fecha-rapidos">
+            <span>Rápidos:</span>
+            <button data-rango="hoy" class="btn-fecha-simple">Hoy</button>
+            <button data-rango="ayer" class="btn-fecha-simple">Ayer</button>
+            <button data-rango="ult7" class="btn-fecha-simple">Últimos 7 días</button>
+        </div>
+    </section>
+
+
+    <!-- KPIs -->
+    <section class="cards-resumen">
+        <div class="card-resumen">
+            <span class="card-label">Inicios</span>
+            <span class="card-value" id="kpi-inicios-cliente">0</span>
+        </div>
+        <div class="card-resumen">
+            <span class="card-label">Llegadas escolta</span>
+            <span class="card-value" id="kpi-llegadas-cliente">0</span>
+        </div>
+        <div class="card-resumen">
+            <span class="card-label">Empalmes</span>
+            <span class="card-value" id="kpi-empalmes-cliente">0</span>
+        </div>
+        <div class="card-resumen">
+            <span class="card-label">Desempalmes</span>
+            <span class="card-value" id="kpi-desempalmes-cliente">0</span>
+        </div>
+        <div class="card-resumen">
+            <span class="card-label">Finalizaciones</span>
+            <span class="card-value" id="kpi-fines-cliente">0</span>
+        </div>
+    </section>
+
+    <main class="panel">
+
+        <!-- LOADER GLOBAL -->
+        <div id="loader-global-cliente" class="loader-overlay">
+            <div class="loader">
+                <div class="spinner"></div>
+                <p>Cargando información de hoy…</p>
+                <div class="top-right">
+                    <span class="badge-api"><i class="fas fa-bolt"></i> Vision Desk - Mobile</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- GRÁFICOS PRINCIPALES -->
+        <section class="graficos-grid">
+            <div class="card-grafico">
+                <h2>Embudo operativo del cliente</h2>
+                <p class="grafico-subtitle">Cantidad de reportes por etapa (Inicio → Fin) para el cliente seleccionado.</p>
+                <canvas id="chartEmbudoCliente"></canvas>
+            </div>
+            <div class="card-grafico">
+                <h2>Top rutas Origen → Destino</h2>
+                <p class="grafico-subtitle">Rutas más frecuentes según ciudad de inicio y ciudad destino (solo INICIO).</p>
+                <canvas id="chartRutasCliente"></canvas>
+            </div>
+        </section>
+
+        <!-- MAPA DE CALOR RUTAS -->
+        <section class="card-grafico heatmap-card">
+            <h2>Mapa de calor rutas (Ciudad inicio → Ciudad destino)</h2>
+            <p class="grafico-subtitle">
+                Cada celda muestra cuántos servicios se realizan desde la ciudad de inicio (fila)
+                hacia la ciudad destino (columna) para el cliente seleccionado.
+            </p>
+            <div class="heatmap-wrapper">
+                <table id="tabla-heatmap-cliente" class="heatmap-table"></table>
+            </div>
+        </section>
+
+        <!-- RESUMEN POR ESCOLTA -->
+        <section class="card-grafico card-empleados">
+
+    <div class="card-empleados-header">
+        <div>
+            <h2>Resumen por escolta – Hoy</h2>
+            <p class="grafico-subtitle">
+                Un registro por empleado con sus horas de inicio, llegada, empalme, desempalme y fin,
+                además de ciudades y datos de placa/ruta.
+            </p>
+        </div>
+
+        <div class="card-empleados-actions">
+            <!-- Excel -->
+            <button id="btn-exportar-empleados-excel"
+                    class="btn-icon-download"
+                    title="Exportar a Excel">
+                <i class="fas fa-file-excel"></i>
+                <span>Excel</span>
+            </button>
+
+            <!-- PDF -->
+            <button id="btn-exportar-empleados-pdf"
+                    class="btn-icon-download"
+                    title="Exportar a PDF">
+                <i class="fas fa-file-pdf"></i>
+                <span>PDF</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="tabla-contenedor">
+        <table class="tabla-datos">
+       <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Empleado</th>
+                <th>Cliente</th>
+                <th>Hora inicio</th>
+                <th>Hora llegada</th>
+                <th>Hora empalme</th>
+                <th>Hora desempalme</th>
+                <th>Hora fin</th>
+                <th>Ciudad inicio</th>
+                <th>Ciudad destino</th>
+                <th>Ciudad final</th>
+                <th>Ruta empalme</th>
+                <th>Placa empalme</th>
+                <th>Ruta desempalme</th>
+                <th>Placa desempalme</th>
+            </tr>
+        </thead>
+
+            <tbody id="tbody-empleados-cliente"></tbody>
+        </table>
+    </div>
+</section>
+
+
+        <!-- TABLAS POR ETAPA -->
+        <section class="seccion-tablas">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="inicio">Inicio</button>
+                <button class="tab-btn" data-tab="llegada">Llegada escolta</button>
+                <button class="tab-btn" data-tab="empalme">Empalme</button>
+                <button class="tab-btn" data-tab="desempalme">Desempalme</button>
+                <button class="tab-btn" data-tab="fin">Fin</button>
+            </div>
+
+            <!-- INICIO -->
+            <div id="tab-inicio" class="tab-panel active">
+                <div class="tabla-contenedor">
+                    <table class="tabla-datos">
+                        <thead>
+                            <tr>
+                                <th>Hora</th>
+                                <th>Empleado</th>
+                                <th>Sitio de inicio</th>
+                                <th>Ciudad origen</th>
+                                <th>Ciudad destino</th>
+                                <th>Tipo servicio</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-inicio-cliente"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- LLEGADA ESCOLTA -->
+            <div id="tab-llegada" class="tab-panel">
+                <div class="tabla-contenedor">
+                    <table class="tabla-datos">
+                        <thead>
+                            <tr>
+                                <th>Hora</th>
+                                <th>Empleado</th>
+                                <th>Ruta asignada</th>
+                                <th>Observaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-llegada-cliente"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- EMPALME -->
+            <div id="tab-empalme" class="tab-panel">
+                <div class="tabla-contenedor">
+                    <table class="tabla-datos">
+                        <thead>
+                            <tr>
+                                <th>Hora</th>
+                                <th>Empleado</th>
+                                <th>Ruta</th>
+                                <th>Placa</th>
+                                <th>Número servicio</th>
+                                <th>Precinto</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-empalme-cliente"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- DESEMPALME -->
+            <div id="tab-desempalme" class="tab-panel">
+                <div class="tabla-contenedor">
+                    <table class="tabla-datos">
+                        <thead>
+                            <tr>
+                                <th>Hora</th>
+                                <th>Empleado</th>
+                                <th>Ruta</th>
+                                <th>Placa</th>
+                                <th>Sitio desempalme</th>
+                                <th>Precinto</th>
+                                <th>Conductor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-desempalme-cliente"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- FIN -->
+            <div id="tab-fin" class="tab-panel">
+                <div class="tabla-contenedor">
+                    <table class="tabla-datos">
+                        <thead>
+                            <tr>
+                                <th>Hora</th>
+                                <th>Empleado</th>
+                                <th>Sitio finalización</th>
+                                <th>Ciudad finalización</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-fin-cliente"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+</div>
+
+<!-- SCRIPTS -->
+
+<script src="/DESARROLLO/JS/mobile_core.js"></script>
+<script src="/DESARROLLO/JS/dashboard_aje_group.js"></script>
+<script src="/DESARROLLO/JS/config.js"></script>
+
+</body>
+</html>
