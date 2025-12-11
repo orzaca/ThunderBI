@@ -1,0 +1,15 @@
+# 1. Reglas de Redirección (Al iniciar sesión, ir a su carpeta)
+# Si el usuario tiene el rol 'cliente-a', redirigir al /dashboard
+/dashboard /clientes/cliente-a/ 200 Role=cliente-a
+
+# Si el usuario tiene el rol 'cliente-b', redirigir al /dashboard
+/dashboard /clientes/cliente-b/ 200 Role=cliente-b
+
+# -------------------------------------------------------------------
+
+# 2. Reglas de Protección (Solo se puede acceder a la carpeta si tienes el rol correspondiente)
+# Si no eres cliente-a, no puedes ver su carpeta
+/clientes/cliente-a/* /acceso-denegado.html 401 Role=cliente-a
+
+# Si no eres cliente-b, no puedes ver su carpeta
+/clientes/cliente-b/* /acceso-denegado.html 401 Role=cliente-b

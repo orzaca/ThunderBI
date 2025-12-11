@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Resumen por Empleado - Thunder BI</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Estilos específicos -->
+    <link rel="stylesheet" href="../css/employees.css">
+
+</head>
+<body>
+
+<header class="top-header-small">
+    <div class="top-left">
+        <h1>Resumen por Empleado</h1>
+        <p class="subtitle">Visión rápida de actividad diaria por escolta</p>
+    </div>
+
+    <div class="top-controls">
+        <select id="filter-cliente">
+            <option value="all">— Todos los clientes —</option>
+        </select>
+
+        <input id="search-name" placeholder="Buscar por nombre..." />
+
+        <button id="export-csv" title="Exportar tabla actual">Exportar CSV</button>
+    </div>
+</header>
+
+<main class="container">
+
+    <section id="cards-row" class="cards-row">
+        <!-- tarjetas por empleado llenadas por JS -->
+    </section>
+
+    <section class="table-section">
+        <div class="table-header">
+            <h2>Tabla de empleados</h2>
+            <small id="table-info"></small>
+        </div>
+
+        <div class="table-wrap">
+            <table id="employees-table" class="employees-table">
+                <thead>
+                    <tr>
+                        <th>Empleado</th>
+                        <th>Cliente</th>
+                        <th>Último reporte</th>
+                        <th>Tipo</th>
+                        <th>Tiempo desde</th>
+                        <th>Preoper.</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </section>
+
+</main>
+
+<!-- Modal detalle empleado -->
+<div id="modal-employee" class="modal">
+    <div class="modal-content">
+        <button id="modal-close" class="modal-close">&times;</button>
+        <h3 id="modal-title">Detalle empleado</h3>
+
+        <div id="modal-body" class="modal-body">
+            <!-- timeline y estadísticas -->
+        </div>
+
+        <div class="modal-actions">
+            <button id="modal-export">Exportar historial (CSV)</button>
+            <button id="modal-close-2">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Loader -->
+<div id="loader" class="loader" style="display:none;">
+    <div class="spinner"></div>
+    <div>Cargando reportes...</div>
+</div>
+
+<!-- Scripts -->
+<script src="../js/config.js"></script> <!-- tu config existente -->
+<script src="../js/employees.js"></script>
+</body>
+</html>

@@ -330,6 +330,15 @@
 <script src="js/app.js"></script>
 <script src="js/kpi_circles.js"></script>
 <script src="js/kpi_barras_global.js"></script>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("login", user => {
+      // Intentar redirigir a la ruta comodín que activará la regla en _redirects
+      document.location.href = "/clientes/Fisica/San Fernando/"; 
+    });
+  }
+</script>
 
 </body>
 </html>
