@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Thunder BI - Securitas Colombia</title>
+
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+        <link rel="icon" type="image/x-icon" href="../Vision Desk/img/favicon.ico"> 
+    <!-- ICONOS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+ 
+
+
+<!-- =========================================================
+     SIDEBAR SOLO ICONOS – PREMIUM
+========================================================= -->
+<aside class="sidebar-icons">
+
+    <div class="icon-item" data-title="Panel General" onclick="window.location.href='index.html'">
+        <i class="fas fa-chart-line"></i>
+    </div>
+
+    <div class="icon-item" data-title="Reportes" onclick="window.location.href='dashboard_cliente_hoy.html'">
+        <i class="fas fa-file-alt"></i>
+    </div> 
+
+    <div class="icon-item" data-title="Empleados" onclick="window.location.href='empleados.html'">
+        <i class="fas fa-user-shield"></i>
+    </div>
+
+    <div class="icon-item" data-title="Clientes" onclick="window.location.href='clientes.html'">
+        <i class="fas fa-building"></i>
+    </div>
+
+      <div class="icon-item" data-title="Programación">
+        <i class="fas fa-calendar-alt"></i>
+    </div>
+
+    <div class="icon-item" data-title="Salir" onclick="window.location.href='reportes.html'">
+        <i class="fas fa-sign-out-alt"></i>
+    </div>
+
+</aside>
+
+
+<!-- =========================================================
+     HEADER CORPORATIVO
+========================================================= -->
+<header class="top-header">
+    <div class="header-inner">
+
+        <div class="header-top-row">
+            <!-- LOGO IZQUIERDA -->
+            <div class="header-logo">
+                <img src="https://brand.securitas.com/wp-content/uploads/2021/02/SEC_Logotype_3-1536x768.png" alt="Securitas Logo">
+            </div>
+            <!-- logo App -->
+            <div class="top-right">
+                <span class="badge-api"><i class="fas fa-bolt"></i> Thunder BI</span>
+            </div>
+
+            <!-- Subtítulo -->
+            <div class="header-title-block">
+                <span class="header-subtitle">Monitoreo operativo – Vision Mobile</span>
+            </div>
+
+            <!-- Selector cliente -->
+            <div class="header-client-selector">
+                <label for="cliente-select">Cliente</label>
+                <select id="cliente-select"></select>
+            </div>
+        </div>
+
+    </div>
+</header>
+
+<div id="loader-dashboard" class="loader-overlay-page">
+    <div class="loader-spinner"></div>
+    <span class="loader-text">Cargando información del día...</span>
+</div>
+
+
+<!-- =========================================================
+     CUERPO PRINCIPAL
+========================================================= -->
+<main class="main-layout">
+
+    <!-- PANEL GLOBAL -->
+    <section class="panel panel-global">
+        <div class="panel-header">
+            <div>
+                <h2>Resumen global del día</h2>
+            </div>
+        </div>
+
+        <div class="panel-content">
+            <div class="kpi-bar">
+                
+                <!-- PREOPERACIONAL-->
+                <div class="kpi-pill kpi-global-preoper">
+                    <span class="kpi-label">PREOPERACIONAL</span>
+                    <span class="kpi-value" id="total-preoperacional">0</span>
+                </div>
+
+                <!-- INICIOS -->
+                <div class="kpi-pill kpi-global-inicio">
+                    <span class="kpi-label">INICIOS</span>
+                    <span class="kpi-value" id="total-inicio">0</span>
+                </div>
+
+                <!-- LLEGADAS -->
+                <div class="kpi-pill kpi-global-llegada">
+                    <span class="kpi-label">LLEGADAS</span>
+                    <span class="kpi-value" id="total-llegada">0</span>
+                </div>
+
+                <!-- EMPALMES (CON BARRA HORIZONTAL) -->
+                <div class="kpi-pill kpi-global-empalme">
+                    <span class="kpi-label">EMPALMES</span>
+                    <span class="kpi-value" id="total-empalme">0</span>
+
+                    <div class="kpi-progress" id="bar-empalme">
+                        <div class="kpi-progress-fill"></div>
+                    </div>
+                    <span class="kpi-progress-percent" id="bar-empalme-pct">0%</span>
+                </div>
+
+                <!-- DESEMPALMES (CON BARRA) -->
+                <div class="kpi-pill kpi-global-desempalme">
+                    <span class="kpi-label">DESEMPALMES</span>
+                    <span class="kpi-value" id="total-desempalme">0</span>
+
+                    <div class="kpi-progress" id="bar-desempalme">
+                        <div class="kpi-progress-fill"></div>
+                    </div>
+                    <span class="kpi-progress-percent" id="bar-desempalme-pct">0%</span>
+                </div>
+
+                <!-- FINES (CON BARRA) -->
+                <div class="kpi-pill kpi-global-fin">
+                    <span class="kpi-label">FINES</span>
+                    <span class="kpi-value" id="total-fin">0</span>
+
+                    <div class="kpi-progress" id="bar-fin">
+                        <div class="kpi-progress-fill"></div>
+                    </div>
+                    <span class="kpi-progress-percent" id="bar-fin-pct">0%</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- PANEL KPI CLIENTE -->
+    <section class="panel panel-cliente">
+        <div class="panel-header">
+            <div>
+                <h2>
+                    Detalle del cliente seleccionado
+                    <span id="cliente-actual"></span>
+                </h2>
+            </div>
+        </div>
+
+        <div class="panel-content">
+
+            <!-- KPI CARDS CLIENTE -->
+            <div id="cliente-section">
+
+                <!-- PREOPERACIONAL (SIN GRÁFICO) -->
+                <div class="mini-card mini-preoperacional">
+                    <span class="mini-title">PREOPERACIONAL</span>
+                    <span class="mini-number" id="c-preoperacional">0</span>
+                </div>
+
+                <!-- INICIO (sin gráfico) -->
+                <div class="mini-card mini-inicio">
+                    <span class="mini-title">INICIO SERVICIO</span>
+                    <span class="mini-number" id="c-inicio">0</span>
+                </div>
+
+                <!-- LLEGADA (sin gráfico) -->
+                <div class="mini-card mini-llegada">
+                    <span class="mini-title">LLEGADA ESCOLTA</span>
+                    <span class="mini-number" id="c-llegada">0</span>
+                </div>
+
+                <!-- EMPALME (con gráfico circular) -->
+                <div class="mini-card mini-empalme">
+                    <span class="mini-title">EMPALME</span>
+
+                    <div class="kpi-circle" id="circle-empalme">
+                        <svg>
+                            <circle class="bg"></circle>
+                            <circle class="progress"></circle>
+                        </svg>
+                        <span class="circle-value" id="pct-empalme">0%</span>
+                    </div>
+
+                    <span class="mini-number" id="c-empalme">0</span>
+                </div>
+
+                <!-- DESEMPALME (con gráfico circular) -->
+                <div class="mini-card mini-desempalme">
+                    <span class="mini-title">DESEMPALME</span>
+
+                    <div class="kpi-circle" id="circle-desempalme">
+                        <svg>
+                            <circle class="bg"></circle>
+                            <circle class="progress"></circle>
+                        </svg>
+                        <span class="circle-value" id="pct-desempalme">0%</span>
+                    </div>
+
+                    <span class="mini-number" id="c-desempalme">0</span>
+                </div>
+
+                <!-- FIN (con gráfico circular) -->
+                <div class="mini-card mini-fin">
+                    <span class="mini-title">FIN SERVICIO</span>
+
+                    <div class="kpi-circle" id="circle-fin">
+                        <svg>
+                            <circle class="bg"></circle>
+                            <circle class="progress"></circle>
+                        </svg>
+                        <span class="circle-value" id="pct-fin">0%</span>
+                    </div>
+
+                    <span class="mini-number" id="c-fin">0</span>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- PANEL TABLA EMPLEADOS -->
+    <section class="panel panel-tabla">
+        <div class="panel-header">
+            <div>
+                <h2>Empleados que reportaron hoy</h2>
+                <span class="panel-subtitle">Eventos recibidos por tipo de reporte</span>
+            </div>
+        </div>
+
+        <div class="panel-content">
+            <div id="tabla-empleados-container">
+                <table id="tabla-empleados" class="tabla-empleados">
+                    <thead>
+                        <tr>
+                            <th>Empleado</th>
+                            <th>Preoperacional</th>
+                            <th>Inicio</th>
+                            <th>Llegada</th>
+                            <th>Empalme</th>
+                            <th>Desempalme</th>
+                            <th>Fin</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- PANEL ARMAS POR DEVOLVER -->
+    <section class="panel panel-armas">
+        <div class="panel-header">
+            <div>
+                <h2>Armas por devolver (hoy)</h2>
+                <span class="panel-subtitle">Desempalmes con arma aún pendiente de entrega</span>
+            </div>
+        </div>
+
+        <div class="panel-content">
+            <table id="tabla-armas" class="tabla-empleados tabla-armas">
+                <thead>
+                    <tr>
+                        <th>Empleado</th>
+                        <th>Cliente</th>
+                        <th>Hora desempalme</th>
+                        <th>Tiempo transcurrido</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </section>
+
+</main>
+
+
+<!-- MODAL DETALLE KPI GLOBAL -->
+<div id="modal-kpi" class="modal-kpi">
+    <div class="modal-kpi-content">
+        <div class="modal-kpi-header">
+            <h3 id="modal-kpi-title">Detalle</h3>
+            <span class="modal-kpi-close" id="modal-kpi-close">&times;</span>
+        </div>
+        <div class="modal-kpi-body">
+            <table class="tabla-empleados tabla-modal" id="modal-kpi-table">
+                <thead>
+                    <tr>
+                        <th>Empleado</th>
+                        <th>Cliente</th>
+                        <th>Hora</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- TOASTS LIVE -->
+<div id="toast-container"></div>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script src="js/kpi_circles.js"></script>
+<script src="js/kpi_barras_global.js"></script>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+
+</body>
+</html>

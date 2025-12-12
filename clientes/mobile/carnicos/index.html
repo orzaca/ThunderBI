@@ -1,0 +1,237 @@
+<!-- Index.html CARNICOS BARRANQUILLA
+CREADO POR: ORLANDO ZAMBRANO
+EMPRESA: SECURITAS COLOMBIA
+NOMBRE PROYECTO: THUNDER BI 
+-->
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Thunder BI — Centro Empresarial San Fernando Plaza</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/clientes/mobile/carnicos/carnicos.css" />
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/clientes/mobile/carnicos/config_carnicos.js"></script>
+  </head>
+
+  <body>
+    <div class="layout">
+      <aside class="sidebar" id="sidebar-menu">
+        <div
+          id="sidebar-logo-container"
+          style="padding: 15px 10px; border-bottom: 1px solid #e9ecef;"
+        >
+          <img
+            src="/clientes/mobile/carnicos/LOGO.png"
+            alt="Logo de Cliente"
+            style="
+              max-width: 80%;
+              height: auto;
+              display: block;
+              margin: 0 auto;
+            "
+          />
+        </div>
+
+        <div class="sidebar-header">
+          <h3>Plantillas</h3>
+          <button id="btn-toggle-sidebar" class="btn-icon-small">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+
+        <div class="sidebar-actions">
+          <button id="btn-all-templates" class="btn-sidebar">TODOS</button>
+          <button id="btn-clear-templates" class="btn-sidebar">Limpiar</button>
+        </div>
+
+        <div id="sidebar-list" class="sidebar-list">
+          <div class="sidebar-empty">Cargando plantillas…</div>
+        </div>
+
+        <div class="sidebar-footer">
+          <small id="sidebar-footer-info">Selecciona plantillas para filtrar</small>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="top-header">
+          <div class="header-inner">
+            <div class="header-left">
+              <div class="header-logo">
+                <img
+                  src="https://brand.securitas.com/wp-content/uploads/2021/02/SEC_Logotype_3-1536x768.png"
+                  alt="Securitas Logo"
+                />
+              </div>
+            </div>
+
+            <div class="header-center header-title-block">
+              <h1>
+                Dashboard — <span id="cliente-title"></span>
+              </h1>
+              <div id="subtitulo-dia-cliente" class="header-subtitle"></div>
+            </div>
+
+            <div class="header-right">
+              <span class="badge-api"><i class="fas fa-bolt"></i> Thunder BI</span>
+            </div>
+          </div>
+        </header>
+
+        <section class="controls-and-pills">
+          <div class="filtros-fecha">
+            <div class="filtros-fecha-rango">
+              <label>Desde <input id="fecha-desde" type="date" /></label>
+              <label>Hasta <input id="fecha-hasta" type="date" /></label>
+              <button id="btn-aplicar-fecha" class="btn-fecha-primario">
+                <i class="fas fa-filter"></i> Aplicar
+              </button>
+              <button id="btn-refrescar" class="btn-fecha-primario">
+                <i class="fas fa-rotate-right"></i> Refrescar
+              </button>
+            </div>
+
+            <div class="filtros-fecha-rapidos">
+              <button class="btn-fecha-simple btn-fecha-rapido" data-rango="hoy">
+                Hoy
+              </button>
+              <button class="btn-fecha-simple btn-fecha-rapido" data-rango="ayer">
+                Ayer
+              </button>
+              <button class="btn-fecha-simple btn-fecha-rapido" data-rango="ult7">
+                Últ. 7 días
+              </button>
+            </div>
+          </div>
+
+          <div id="pills-container" class="pills-container"></div>
+        </section>
+
+        <section class="cards-resumen anim-stagger" id="kpis-row">
+          <div class="card-resumen selectable" data-kpi="total">
+            <span class="card-label">Total reportes</span>
+            <span class="card-value" id="kpi-total">0</span>
+          </div>
+
+          <div class="card-resumen selectable" data-kpi="empleados">
+            <span class="card-label">Empleados distintos</span>
+            <span class="card-value" id="kpi-empleados">0</span>
+          </div>
+
+          <div class="card-resumen selectable" data-kpi="conFoto">
+            <span class="card-label">Reportes con foto</span>
+            <span class="card-value" id="kpi-con-foto">0</span>
+          </div>
+
+          <div class="card-resumen selectable" data-kpi="sinFoto">
+            <span class="card-label">Reportes sin foto</span>
+            <span class="card-value" id="kpi-sin-foto">0</span>
+          </div>
+        </section>
+
+        <main class="panel">
+          <div id="loader-global-cliente" class="loader-overlay oculto">
+            <div class="loader">
+              <div class="spinner"></div>
+              <p>Cargando datos del cliente…</p>
+            </div>
+          </div>
+
+          <div class="seccion-tablas">
+            <div class="tabs">
+              <button class="tab-btn active" data-tab="report-feed">
+                Feed de Reportes
+              </button>
+              <button class="tab-btn" data-tab="gestion-operativa">
+                Gestión Operativa
+              </button>
+              <button class="tab-btn" data-tab="empleados">
+                Estadística Empleados
+              </button>
+            </div>
+
+            <div id="tab-report-feed" class="tab-panel active">
+              <div class="card-grafico" style="border:none; box-shadow:none; padding:0;">
+                <div
+                  class="card-empleados-header"
+                  style="background:transparent; border:none; padding-left:0;"
+                >
+                  <h2>Bitácora de Actividades</h2>
+                  <div class="card-empleados-actions">
+                    <button id="btn-export-reportes" class="btn-icon-download">
+                      <i class="fas fa-file-csv"></i> <span>Exportar CSV</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div id="report-feed-container" class="report-feed-container"></div>
+              </div>
+            </div>
+
+            <div id="tab-gestion-operativa" class="tab-panel">
+              <div id="gestion-operativa-container"></div>
+            </div>
+
+            <div id="tab-empleados" class="tab-panel">
+              <div class="card-grafico">
+                <div class="card-empleados-header">
+                  <h2>Empleados que reportaron</h2>
+                  <div class="card-empleados-actions">
+                    <button id="btn-export-empleados" class="btn-icon-download">
+                      <i class="fas fa-file-csv"></i> <span>Exportar CSV</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="tabla-contenedor">
+                  <table class="tabla-datos" id="tabla-empleados">
+                    <thead>
+                      <tr>
+                        <th>Empleado</th>
+                        <th># Reportes</th>
+                        <th>Primer reporte</th>
+                        <th>Último reporte</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody-empleados"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </main>
+    </div>
+
+    <div id="modal-detalle" class="modal oculto">
+      <div class="modal-contenido">
+        <button id="modal-close" class="modal-close">
+          <i class="fas fa-times"></i>
+        </button>
+        <h3>Detalle del Reporte</h3>
+
+        <p id="modal-report-meta">---</p>
+        <p id="modal-report-id">---</p>
+        <div id="modal-fields"></div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+
+    <script src="/clientes/mobile/carnicos/carnicos.js"></script>
+
+    
+  </body>
+</html>
