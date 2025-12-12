@@ -1,0 +1,25 @@
+# Archivo: .github/workflows/firebase-hosting.yml
+
+name: Despliegue a Firebase Hosting
+
+on:
+  push:
+    branches:
+      - main  # Cambia a 'master' si usas esa rama
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      # Despliega los archivos a Firebase Hosting
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          # El token de servicio que creamos en el paso 2
+          repoToken: '${{ secrets.GITHUB_TOKEN }}' 
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_THUNDERBI }}'
+          channelId: live
+          projectId: thunderbi # Asegúrate de que coincida con tu ID de Proyecto
+          # Aquí le decimos que la carpeta a desplegar es la raíz del repo (donde está index.html)
+          target: .
